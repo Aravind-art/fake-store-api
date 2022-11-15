@@ -7,6 +7,8 @@ const dotenv = require("dotenv");
 const dotenvExpand = require("dotenv-expand");
 const myEnv = dotenv.config();
 dotenvExpand.expand(myEnv);
+const graphqlServer = require("./graphql");
+const { expressMiddleware } = require("@apollo/server/express4");
 
 //app
 const app = express();
@@ -20,6 +22,7 @@ const homeRoute = require("./routes/home");
 const cartRoute = require("./routes/cart");
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
+const { authMiddleWareGql } = require("./middleware/auth");
 
 //middleware
 app.use(cors());
@@ -43,6 +46,22 @@ const dbUrl =
   process.env.NODE_ENV === "prod"
     ? process.env.DATABASE_URL
     : process.env.DATABASE_URL_LOCAL;
+
+const serve = async () => {
+  await graphqlServer.start();
+
+  app.use(
+    "/graphql",
+    cors(),
+    express.json(),
+    authMiddleWareGql,
+    expressMiddleware(graphqlServer, {
+      context: async ({ req }) => ({ token: req.headers.token }),
+    })
+  );
+};
+serve();
+
 //mongoose
 mongoose.set("useFindAndModify", false);
 mongoose.set("useUnifiedTopology", true);

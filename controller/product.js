@@ -1,4 +1,3 @@
-const Product = require("../model/product");
 const {
   findProducts,
   findOneProduct,

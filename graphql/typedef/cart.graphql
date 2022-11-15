@@ -1,0 +1,13 @@
+type Items {
+  productId: Number
+  quantity: Number
+}
+type Cart {
+  id: Number
+  userId: String
+  date: String
+  products: [Items]!
+}
+type Query {
+  cart: Cart
+}

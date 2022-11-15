@@ -1,0 +1,30 @@
+type Product {
+  id: Int
+  title: String
+  price: Float
+  description: String
+  image: String
+  category: String
+}
+type Query {
+  products(limit: Int, sort: String, category: String): [Product]
+  product(id: Int!): Product
+  categories: [String]
+}
+type Mutation {
+  addProduct(
+    title: String!
+    price: Int!
+    description: String
+    image: String
+    category: String!
+  ): Product
+  updateProduct(
+    id: Int!
+    title: String
+    price: Int
+    description: String
+    image: String
+    category: String
+  ): Product
+}
