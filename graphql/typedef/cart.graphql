@@ -1,9 +1,9 @@
 type Items {
-  productId: Number
-  quantity: Number
+  productId: Int
+  quantity: Int
 }
 type Cart {
-  id: Number
+  id: Int
   userId: String
   date: String
   products: [Items]!
