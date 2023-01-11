@@ -28,6 +28,7 @@ module.exports.findProductCount = () => {
     .sort({ id: -1 })
     .limit(1)
     .then((fields) => {
+      if (fields.length === 0) return 0;
       return fields[0].id;
     });
 };
