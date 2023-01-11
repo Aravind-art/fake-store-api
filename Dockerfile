@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE $PORT
 
-CMD [ "node", "server.js" ]
+CMD [ "npm", "run", "start" ]
